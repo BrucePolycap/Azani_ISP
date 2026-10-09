@@ -73,10 +73,63 @@ public class MonthlyPayment {
     public LocalDate getPaymentDate() { return paymentDate; }
     public void setPaymentDate(LocalDate paymentDate) { this.paymentDate = paymentDate; }
 
-    // Helper method: total due = amount + fine + reconnection - discount
+    // Helper: total owed = amount + fine + reconnection - discount
     public double getTotalDue() {
         return (amount + fine + reconnectionFee) - discount;
     }
+
+
+    // Is this bill overdue for a 15% fine?
+    // Rule: bill must be paid by the END of the billing month.
+    public boolean isFineApplicable() {
+        if (isPaid) return false;
+
+        java.time.LocalDate billMonth = toLocalDate();
+        if (billMonth == null) return false;
+
+        // End of the billing month
+        java.time.LocalDate monthEnd = billMonth.withDayOfMonth(billMonth.lengthOfMonth());
+
+        return java.time.LocalDate.now().isAfter(monthEnd);
+    }
+
+
+    // Is this bill eligible for disconnection?
+    // Rule: unpaid past the 10th of the subsequent month.
+    public boolean isDisconnectable() {
+        if (isPaid) return false;
+
+        java.time.LocalDate billMonth = toLocalDate();
+        if (billMonth == null) return false;
+
+        // 10th of the following month
+        java.time.LocalDate deadline = billMonth.plusMonths(1).withDayOfMonth(10);
+
+        return java.time.LocalDate.now().isAfter(deadline);
+    }
+
+    
+    // Helper: convert month name + year into a LocalDate (1st of month)
+    private java.time.LocalDate toLocalDate() {
+        int monthNum = switch (month.toLowerCase()) {
+            case "january"   -> 1;
+            case "february"  -> 2;
+            case "march"     -> 3;
+            case "april"     -> 4;
+            case "may"       -> 5;
+            case "june"      -> 6;
+            case "july"      -> 7;
+            case "august"    -> 8;
+            case "september" -> 9;
+            case "october"   -> 10;
+            case "november"  -> 11;
+            case "december"  -> 12;
+            default -> 0;
+        };
+        if (monthNum == 0) return null;
+        return java.time.LocalDate.of(year, monthNum, 1);
+    }
+
 
     @Override
     public String toString() {

@@ -4,13 +4,13 @@ public class ComputerPurchase {
     private int purchaseId;
     private int institutionId;
     private int quantity;
-    private int unitPrice;
+    private double unitPrice;
     private double totalPrice;
 
     public ComputerPurchase() {
     }
 
-    public ComputerPurchase(int institutionId, int quantity, int unitPrice, double totalPrice) {
+    public ComputerPurchase(int institutionId, int quantity, double unitPrice, double totalPrice) {
         this.institutionId = institutionId;
         this.quantity = quantity;
         this.unitPrice = 40000;
@@ -27,8 +27,8 @@ public class ComputerPurchase {
     public int getQuantity() { return quantity; }
     public void setQuantity(int quantity) { this.quantity = quantity; }
 
-    public int getUnitPrice() { return unitPrice; }
-    public void setUnitPrice(int unitPrice) { this.unitPrice = unitPrice; }
+    public double getUnitPrice() { return unitPrice; }
+    public void setUnitPrice(double unitPrice) { this.unitPrice = unitPrice; }
 
     public double getTotalPrice() { return totalPrice; }
     public void setTotalPrice(double totalPrice) { this.totalPrice = totalPrice; }

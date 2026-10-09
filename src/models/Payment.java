@@ -19,11 +19,17 @@ public class Payment {
         this.paymentDate = paymentDate;
     }
 
+    public int getPaymentId() {return paymentId;}
+    public void setPaymentId(int paymentId) {this.paymentId = paymentId;}
+
+    public int getInstitutionId() { return institutionId; }
+    public void setInstitutionId(int institutionId) { this.institutionId = institutionId; }
+    
     public double getAmount() {return amount;}
     public void setAmount(double amount) {this.amount = amount; }
 
     public String getPaymentMethod() {return paymentMethod; }
-    public void setPaypemtMethod(String paymentMethod) {this.paymentMethod = paymentMethod; }
+    public void setPaymentMethod(String paymentMethod) {this.paymentMethod = paymentMethod; }
     
     public LocalDate paymentDate() {return paymentDate;}
     public void setPaymentDate(LocalDate paymentDate) {this.paymentDate = paymentDate; }
